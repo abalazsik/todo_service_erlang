@@ -1,0 +1,19 @@
+{application, backend,
+ [{description, "Example cowboy application that connects to a postgres db through odbc"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {backend_app, []}},
+  {applications,
+   [kernel,
+    stdlib,
+    cowboy,
+    jsone,
+    iso8601,
+    odbc
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {licenses, ["Apache 2.0"]},
+  {links, []}
+ ]}.

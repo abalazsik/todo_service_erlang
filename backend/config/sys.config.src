@@ -1,0 +1,8 @@
+[
+    { backend,[
+        { connectionString, "Driver={PostgreSQL UNICODE};Server=database;Port=5432;Database=todo;Uid=todo;Pwd=todo;" }]
+    },
+    { kernel, [
+        { logger_level, debug }]
+    }
+].

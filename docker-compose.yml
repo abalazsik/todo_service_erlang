@@ -1,0 +1,39 @@
+version: '2'
+services:
+  database:
+    image: postgres:14
+    environment:
+      POSTGRES_PASSWORD: todo
+      POSTGRES_USER: todo
+      POSTGRES_DB: todo
+    volumes:
+      - ./init_database.sql:/docker-entrypoint-initdb.d/init_database.sql
+    ports:
+      - 5433:5432
+    expose:
+      - "5432"
+    healthcheck:
+      test: psql -U todo -d todo -c 'select * from todo'
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+
+  backend:
+    build:
+      context: .
+      dockerfile: DOCKERFILE
+    volumes:
+      - ./backend:/root
+    working_dir:
+      /root
+    command: rebar3 shell
+    environment:
+      DEBUG: 1
+    ports:
+      - "8080:8080"
+    depends_on:
+      database:
+        condition: service_healthy
+    stdin_open: true
+    tty: true
